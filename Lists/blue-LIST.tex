@@ -1,0 +1,51 @@
+%%%%%
+%%
+%% This file sets up the Blue datatype and creates Blue macros.  These
+%% are for bluesheets.
+%%
+%%%%%
+
+\DECLARESUBTYPE{Blue}{Element}
+\PRESETS{Blue}{
+  \FD\MYfile	{} %% filename (in \blues directory)
+  \FS\MYtext	{\ifx\MYfile\empty\else%
+		  \getextractenvs{document}{\blues/\MYfile}%
+		\fi}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{Blue}{\bTest}{
+  \s\MYname	{Test Bluesheet}
+  \s\MYfile	{README.tex}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{Blue}{\bParagons}{
+  \s\MYname	{The Paragons}
+  \s\MYfile	{Paragons.tex}
+  }
+  
+\NEW{Blue}{\bGhosts}{
+  \s\MYname	{Ghosts}
+  \s\MYfile	{Ghosts.tex}
+  }
+  
+\NEW{Blue}{\bFairies}{
+  \s\MYname	{Fairies}
+  \s\MYfile	{Fairies.tex}
+  }
+  
+\NEW{Blue}{\bConcordance}{
+  \s\MYname	{Katmeers Concordance}
+  \s\MYfile	{Concordance.tex}
+  }
+  
+\NEW{Blue}{\bRules}{
+  \s\MYname	{The Katmeers System}
+  \s\MYfile	{Rules.tex}
+  }
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

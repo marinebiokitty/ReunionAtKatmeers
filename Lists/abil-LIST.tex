@@ -1,0 +1,601 @@
+%%%%%
+%%
+%% This file sets up the Abil datatype and creates Abil macros.  These
+%% are for abilities that characters may have.
+%%
+%%%%%
+
+\DECLARESUBTYPE{Abil}{Element}
+\PRESETS{Abil}{
+  \F\MYtext	%% text of ability, read by user
+  \F\MYeffect	%% effect text of ability, read by recipient(s)
+  }
+
+
+%%%%%
+%% \ability{<name>}{<text>}{<effect>}
+%%
+%% \ability is a wrapper around \INSTANCE, useful for 1-shot abilities,
+%% etc.
+\newinstance{Abil}{\ability[3]}{
+  \s\MYname{#1}\s\MYtext{#2}\s\MYeffect{#3}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{Abil}{\aTest}{
+  \s\MYname	{Test Ability}
+  \s\MYtext	{You are a test.}
+  \s\MYeffect	{This is a Test.}
+  }
+
+\NEW{Abil}{\aSpecial}{
+  \s\MYname	{Special Powers}
+  \s\MYtext	{You have special powers, as detailed in your \gTest{}
+		greensheet.}
+  \s\MYeffect	{I have special powers!}
+  \s\MYgreens	{\gTest{}}
+  \suite
+  }
+
+\NEW{Abil}{\aFiremansCarry}{
+  \s\MYname	{Fireman's Carry}
+  \s\MYtext	{You can carry a body as if it were two hands bulky.}
+  \s\MYeffect	{I can carry this body well.}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+  
+%% Basic DarkWater-style Martial Attack abilities
+
+
+%% Everyone has these 3
+\NEW{Abil}{\aAssist}{
+  \s\MYname	{Assist}
+  \s\MYtext	{You can assist someone else's attack.  You must be
+		within ZoC of both the attacker and target.  Within two
+		seconds of an attack, direct this at the attacker,
+		saying ``\MYname'' and your CR.}
+  \s\MYeffect	{I assist your attack.}
+  }
+
+\NEW{Abil}{\aKnockOut}{
+  \s\MYname	{Knock Out}
+  \s\MYtext	{You can knock someone out as an attack.  This requires
+		a {\bf blunt} weapon.  Say ``\MYname'' and your CR.}
+  \s\MYeffect	{I knock you out.}
+  }
+
+\NEW{Abil}{\aWound}{
+  \s\MYname	{Wound}
+  \s\MYtext	{You can wound someone as an attack.  This requires an
+		{\bf edged} weapon, such as a knife.  Say ``\MYname'' and
+		your CR.}
+  \s\MYeffect	{I wound you.}
+  }
+
+
+%% the \basecombat macro can be prepended to the Char abils list
+%% (in char-LIST.tex)
+\def\basecombat{\aKnockOut{}\aWound{}\aAssist{}}
+
+%% only some people have these
+\NEW{Abil}{\aDisarm}{
+  \s\MYname	{Disarm}
+  \s\MYtext	{You can disarm one item from someone as an attack.  Say
+		``\MYname'' and your CR.  Point at the item you want to
+		disarm.  If the attack works, they must drop that item.}
+  \s\MYeffect	{I disarm that item.}
+  }
+
+\NEW{Abil}{\aRestrain}{
+  \s\MYname	{Restrain}
+  \s\MYtext	{You can restrain someone as an attack.  Say ``\MYname''
+		and your CR.  You may freely drag, attack, or (if you have
+		a weapon) killing-blow them.  To do anything else, or if
+		your health state changes, incant ``release'' and let them
+		go.}
+  \s\MYeffect	{I restrain you.  You are restrained until I incant
+		``release.''}
+  }
+\NEW{Abil}{\aThrow}{
+  \s\MYname	{Throw}
+  \s\MYtext	{You can throw someone as an attack.  Say ``\MYname'' and
+		your CR.  Point in the direction you want to throw them.}
+  \s\MYeffect	{I throw you.  Go in the direction I point ten full steps
+		or until you hit a wall or similar.}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%Hermione's abilities
+\NEW{Abil}{\aNecromancy}{
+  \s\MYname	{Necromancy (Dark)}
+  \s\MYtext	{{\bf x2}Bring the dead back to life. The target's ghost must not be in a bottle, and the target will be aware of what you just did to them. Additionally, necromancy does significant damage to the soul being pulled back; your target will no longer be able to cast magic. You coul also theorteically use this to raise Thevardra, although it would take much longer (i.e several hours, and is outside th scope of the larp) unless you could find her ghost at large somewhere.}
+  \s\MYeffect	{I bring you back to life. You know that I used dark magic to do this. You can {\bf no longer} use magic.}
+  }
+  
+\NEW{Abil}{\aBeyondReproach}{
+  \s\MYname	{Beyond Reproach}
+  \s\MYtext	{{\bf x3} Convince your target that you are telling the truth. Must actually be telling the truth and must not be misleading.}
+  \s\MYeffect	{You believe I am telling the truth.}
+  }
+  
+\NEW{Abil}{\aInvestigation}{
+  \s\MYname	{Investigation}
+  \s\MYtext	{{\bf 1} Get a clue from the GMs regarding how to approach one topic of investigation.}
+  \s\MYeffect	{I ask a GM for help.}
+  }
+
+\NEW{Abil}{\aPolymorph}{
+  \s\MYname	{Charm of Polymorph}
+  \s\MYtext	{{\bf x3} Given five minutes and a wearable object you can create a charm of polymorph similar to the one that \cHarry{} uses. These are keeyed to a specific polymorphee, and will always turn the wearer into the same alter ego, a generic person of any gender.}
+  \s\MYeffect	{I enchant an object to be a polymorph.}
+  }
+
+%%Harry's abilities
+\NEW{Abil}{\aSeeGhosts}{
+  \s\MYname	{See Ghosts}
+  \s\MYtext	{{\bf Passive} Perhaps because you spent so much time in the realm of the dead, you can see ghosts.}
+  \s\MYeffect	{I can see and interact with you.}
+  }
+
+\NEW{Abil}{\aMuggle}{
+  \s\MYname	{Just a Muggle}
+  \s\MYtext	{{\bf x2} Get a target or group to talk unguardedly about a sensitive subject. They will feel completely comfortable doing so, since your just a Muggle and incapable of being a threat.}
+  \s\MYeffect	{I'm just a Muggle. (Target or group feel completely non-threatened by my presence and will discuss any topic as if I weren't there.}
+  }
+  
+\NEW{Abil}{\aHide}{
+  \s\MYname	{Hide}
+  \s\MYtext	{{\bf x2} If alone in a room, you can hide in such a way that no one will find you. You cannot move about while hidden.}
+  \s\MYeffect	{You don't see me.}
+  }
+
+%%Ron's Abilities
+\NEW{Abil}{\aMinsterOfMagic}{
+  \s\MYname	{Minster of Magic}
+  \s\MYtext	{{\bf x2} Draw on your personal authority to get everyone to focus on you for five minutes.}
+  \s\MYeffect	{I am the {\bf Minister of Magic. Everyone in earshot must focus on you for five minutes.}}
+  }
+
+\NEW{Abil}{\aConfidant}{
+  \s\MYname	{A Sympathetic Ear}
+  \s\MYtext	{{\bf x3} You're a really likeable \cRon{\guy}. If you pull someone into a private conversation, they will divulge one clue as to what is troubling them right now. You can use this more than once on the same person, but you have to pull them into a different private conversation at a later time to use it again.}
+  \s\MYeffect	{You trust me to keep your secrets. {\bf You must divulge to me a clue about what is troubling you}}
+  }
+
+\NEW{Abil}{\aMinisterialAuthority}{
+  \s\MYname	{Ministerial Authority}
+  \s\MYtext	{{\bf xU} If you sign bills, they become law. You don't often exercise this without consulting your cabinet, but sometimes you feel particularly strongly about a subject and you've been known to take decisive action}
+  \s\MYeffect	{The bill I sign becomes law.}
+  }
+
+\NEW{Abil}{\aForget}{
+  \s\MYname	{Drink to Forget}
+  \s\MYtext	{{\bf xU} Conveniently forget all about something distressing.}
+  \s\MYeffect	{I take a drink.}
+}
+
+\NEW{Abil}{\aMislay}{
+  \s\MYname	{Mislay Object}
+  \s\MYtext	{{\bf xU} You mislay something and cannot find it again without assistance.}
+  \s\MYeffect	{I don't remember where I put that\ldots{}}
+}
+
+\NEW{Abil}{\aEnrage}{
+  \s\MYname	{Enrage}
+  \s\MYtext	{{\bf x1} You're hard to provoke, especially these days, but you're terrifying when you get angry. {\bf For the rest of the combat, all of your attacks do +1 damage.} \emph{Can be used at any time}}
+  \s\MYeffect	{My anger bubbles to the surface -- it's terrifying.}
+}
+
+%%Luna's Abilities
+\NEW{Abil}{\aInnocence}{
+  \s\MYname	{Wide-Eyed Innocence}
+  \s\MYtext	{{\bf Passive} You are immune to the secondary effects of \iCrystal{}. In fact, you are not even aware that they exist.}
+  \s\MYeffect	{It's just a strange looking crystal.}
+}
+
+\NEW{Abil}{\aIrisSong}{
+  \s\MYname	{Iris's Song}
+  \s\MYtext	{{\bf x3} Play a sprightly song on your \iOcarina{}, making the target feel much better about themselves and their situation.}
+  \s\MYeffect	{You feel better about yourself and your situation.}
+}
+
+\NEW{Abil}{\aOration}{
+  \s\MYname	{Excited Oration}
+  \s\MYtext	{{\bf x2} Tell a fascinating story about your many adventures out in the far corners of the world. The target will be so enthralled and charmed that they will be entirely distracted by your narration for five minutes.}
+  \s\MYeffect	{You are completely engrossed in my story and for {\bf 5 minutes} don't notice anything going on around you.}
+}
+
+\NEW{Abil}{\aSongOfStorms}{
+  \s\MYname	{Song of Storms}
+  \s\MYtext	{{\bf x1} Play a catchy waltz on your \iOcarina{}. Make it rain.}
+  \s\MYeffect	{It starts to rain.}
+}
+
+\NEW{Abil}{\aMuggleKnowledge}{
+  \s\MYname	{Muggle Knowledge}
+  \s\MYtext	{{\bf xU} Tell target a fascinating fact about Muggles. They will believe you, whether or not it is true. (Whether or not it is actually true is up to you.)}
+  \s\MYeffect	{You believe me.}
+}
+
+
+%%La'ki
+\NEW{Abil}{\aImmortal}{
+  \s\MYname	{Immortal Fae}
+  \s\MYtext	{{\bf Passive} Fairies are immortal. You are immune to damage. However, a person wielding an empty bottle can trap you inside it. You cannot use any of your abilities while trapped in a bottle, including \aSacrifice{}}
+  \s\MYeffect	{Fairies are immortal.}
+}
+
+\NEW{Abil}{\aPickPocket}{
+  \s\MYname	{Pick Pocket}
+  \s\MYtext	{{\bf xU} You can pick pockets. See the greensheet ``\gPickPockets{}.'' If someone catches you, show them the ``effect'' side of this ability}
+  \s\MYeffect	{You catch me trying to pick your pocket.}
+  \s\MYgreens {\gPickPockets{}}
+}
+
+\NEW{Abil}{\aSacrifice}{
+  \s\MYname	{Sacrifice}
+  \s\MYtext	{{\bf x1} Heal your target to their original maximum, and be pulled back to your fountain to await the Great Fairy's dread judgement. (This removes you from the game.) {\bf Immediate interrupt: maybe used in the same combat round as someone died in order to save them from death; may alo be used if you have already used a different ability that round.}}
+  \s\MYeffect	{You are healed completely.}
+}
+
+\NEW{Abil}{\aHeyListen}{
+  \s\MYname	{Hey! Listen!}
+  \s\MYtext	{{\bf xU.} Change to topic of conversation to anything you'd like. The others participating in the conversation must say at least one thing related to the new topic of conversation before the conversation can move on.}
+  \s\MYeffect	{Hey! Listen! (You must comment on the topic of conversation that I choose.)}
+}
+
+%Neville's abilities
+%%La'ki
+\NEW{Abil}{\aLensGhosts}{
+  \s\MYname	{See Ghosts}
+  \s\MYtext	{{\bf x1} You can interact with ghosts for five minutes.}
+  \s\MYeffect	{With use of this fascinating device, I can communicate with ghosts for a short time.}
+}
+
+\NEW{Abil}{\aDetectLies}{
+  \s\MYname	{Detect Lies}
+  \s\MYtext	{{\bf x3} You can tell whether a statement made by a target is true. Immediately after a statement is made, ask the target out of character whether the statement was true. They do NOT have to tell you the truth, just whether they were lying or not.}
+  \s\MYeffect	{Tell me out of character if the statement you just made is true.}
+}
+
+%%Ginny's abilities
+\NEW{Abil}{\aRifle}{
+  \s\MYname	{Rifle through pockets}
+  \s\MYtext	{{\bf x4} You can rifle through a target's pockets at any time.}
+  \s\MYeffect	{Show me all of your items. {\bf Your character doesn't notice anything.}}
+}
+
+\NEW{Abil}{\aInvisibility}{
+  \s\MYname	{Invisibility}
+  \s\MYtext	{{\bf x1} Become invisible for 5 minutes. No one, including ghosts and all characters will be able to see you.}
+  \s\MYeffect	{You don't see me.}
+}
+
+%Malfoy
+\NEW{Abil}{\aPeacemaker}{
+  \s\MYname	{Peacemaker}
+  \s\MYtext	{{\bf x2} Put a stop to a combat in progress by pointing out why the parties involved have no reason to fight. No combat will be able to take place involving the relevant parties for the next five minutes. \emph{immediate interrupt - can be used at any time, even during combat. will take effect immediately}}
+  \s\MYeffect	{``Now everybody just calm down.'' {\bf Current combat is ended immediately (do not resolve the rest of the round), and no combat may be initiated for 5 minutes.}}
+}
+
+\NEW{Abil}{\aEarnestAppeal}{
+  \s\MYname	{Earnest Appeal}
+  \s\MYtext	{{\bf x1} Convince one person, in a private conversation that you really have changed. Target will have perfect faith that you are acting with the most benevolent of intentions.}
+  \s\MYeffect	{You believe that I really have changed, and am acting with only the most benevolent of intentions.}
+}
+
+\NEW{Abil}{\aSnideRemark}{
+  \s\MYname	{Snide Remark}
+  \s\MYtext	{{\bf x5} Old habits die hard. Makes your target either flee in embarrassment or immediate initiate combat with you. (target's choice.)}
+  \s\MYeffect	{I say something mean to you. You must either flee in embarrassment or initiate combat with me.}
+}
+
+%Lucius
+\NEW{Abil}{\aSoothe}{
+  \s\MYname	{Soothe}
+  \s\MYtext	{{\bf x3} Cause two parties to regard each other in a friendly manner through your kind, reasonable words. (Lasts until it has been obviously betrayed.)}
+  \s\MYeffect	{``We're all friends here.'' {\bf Two targets must regard each other in a friendly manner until one obviously betrays the other.}}
+}
+
+\NEW{Abil}{\aRile}{
+  \s\MYname	{Rile}
+  \s\MYtext	{{\bf x4} Cause two parties to regard each other with suspicion and hostility through your persuasive and not unreasonable words.}
+  \s\MYeffect	{I sow suspicion and doubt. {\bf Two targets become suspicious and hostile toward each other.}}
+}
+
+\NEW{Abil}{\aCoverUp}{
+  \s\MYname	{Cover-Up}
+  \s\MYtext	{{\bf x3} Change the subject of conversation, causing all other participatns to forget whatever it was that you were just talking about.}
+  \s\MYeffect	{I change the topic. You forget whatever it was that we were previously talking about.}
+}
+
+%Goyle
+\NEW{Abil}{\aInconsequential}{
+  \s\MYname	{Inconsequential}
+  \s\MYtext	{{\bf x3} Convince your target that whatever you were doing was completely innocuous.}
+  \s\MYeffect	{``I wasn't doing anything important.'' You believe that whatever I was just doing is completely innocuous.}
+}
+
+\NEW{Abil}{\aHeir}{
+  \s\MYname	{Thevadra's Heir}
+  \s\MYtext	{{\bf x1} All of your attacks are -1 priority for the rest of the combat. \emph{Does not count as your action for the round.}}
+  \s\MYeffect	{A determined light grows in my eyes.}
+}
+
+%%Ghost
+\NEW{Abil}{\aManifest}{
+  \s\MYname	{Manifest}
+  \s\MYtext	{{\bf xU} You can become visible and audible, even to people who cannot see ghosts, but they must be alone. If someone else chances upon your conversation, you immediately vanish.}
+  \s\MYeffect	{You can see and hear me.}
+}
+
+\NEW{Abil}{\aWillOWisp}{
+  \s\MYname	{Will-o-Wisp}
+  \s\MYtext	{{\bf x5} You can manifest your lantern only. (Can be done in front any number of people.) Lasts until you cancel it.}
+  \s\MYeffect	{You see a small lantern with a single, flickering flame inside.}
+}
+
+\NEW{Abil}{\aGhostTouch}{
+  \s\MYname	{Ghost Touch}
+  \s\MYtext	{{\bf x4} Your hands become tangible. You can use this to push, pull, poke, brush, or otherwise interact with corporeal beings. You do not have the strength to attack using this ability.}
+  \s\MYeffect	{You feel an invisible hand.}
+}
+
+\NEW{Abil}{\aIncorporeal}{
+  \s\MYname	{Incorporeal Ghost}
+  \s\MYtext	{{\bf Passive} You are immune to damage. However, a person wielding an empty bottle can trap you inside it.}
+  \s\MYeffect	{Ghosts are incorporeal.}
+}
+
+\NEW{Abil}{\aAvatarOfRage}{
+  \s\MYname	{Avatar Of Rage}
+  \s\MYtext	{{\bf xU} You can manifest to do combat, regardless of how many observers there are. While in this state, you cannot speak coherently, although you may gibber and wail thematically. You {\bf can} take damage in this state. If you lose all of your hitpoints, you permanently lose this ability and \aManifest{}. The Avatar of Rage is not immune to bottling.}
+  \s\MYeffect	{I manifest as a terrifying Avatar of Rage.}
+}
+
+%%Crabbe
+\NEW{Abil}{\aTalkGhosts}{
+  \s\MYname	{See Ghosts}
+  \s\MYtext	{{\bf Passive} You have always been able to see and interact with ghosts.}
+  \s\MYeffect	{I can see and interact with you.}
+  }
+  
+\NEW{Abil}{\aGhostlySpy}{
+  \s\MYname	{Ghostly Spy}
+  \s\MYtext	{{\bf x4} Ask one of the ambient ghosts for a description of what someone has been doing recently.}
+  \s\MYeffect	{``Tell me what they've been up to.''}
+  }
+  
+\NEW{Abil}{\aConsultDrew}{
+  \s\MYname	{``Consult'' Drew}
+  \s\MYtext	{{\bf xU} To help maintain the fiction taht you are actually in contact with Drew, you may pretend to privately ask a GM what Drew thinks about a matter at any time, and they will pretend that \cHarry{\they} has given you an answer.}
+  \s\MYeffect	{I talk with the ghost of Drew.}
+  }
+
+\NEW{Abil}{\aComfort}{
+  \s\MYname	{Comfort}
+  \s\MYtext	{{\bf x3} Soothe a distraught person who is not actively angry with you. The target will be grateful and think well of you.}
+  \s\MYeffect	{You appreciate my friendly comfort. {\bf You think well of me because of this.}}
+  }
+  
+\NEW{Abil}{\aLieWell}{
+  \s\MYname	{Lie Well}
+  \s\MYtext	{{\bf x3} Convince your target that you are telling the truth. Must \emph{not} actually be telling the truth. Does not overcome truth sensing abilities.}
+  \s\MYeffect	{You believe me.}
+  }
+  
+\NEW{Abil}{\aLieBetter}{
+  \s\MYname	{Lie Even Better}
+  \s\MYtext	{{\bf x1} Nullifies a truth sensing ability. (Just tell the person that you are telling the truth - do NOT show them this card.)}
+  \s\MYeffect	{I am telling the truth.}
+  }
+
+%%Combat Abilities
+\NEW{Abil}{\aPatronus}{
+  \s\MYname	{[P1] Patronus}
+  \s\MYtext	{Conjures an animal spirit to deflect an attack. You can set it to protect any target, including yourself. Deals no damage. Can be used to interrupt attacks of priority $\leq6$.}
+  \s\MYeffect	{I conjure a pearlescent animal spirit to protect someone. {\bf Interrupts the lowest priority attack targeted at protected person. (Only works if attack is priority $\leq6$.)}}
+}
+
+\NEW{Abil}{\aCurse}{
+  \s\MYname	{[P1] Curse}
+  \s\MYtext	{A minor charm to stymie your opponent. Does no damage, but interrupts attacks of priority $\leq6$.}
+  \s\MYeffect	{I cast a minor curse. {\bf Interrupts the lowest priority attack targeted at me. (Only works if attack is priority $\leq6$.)}}
+}
+  
+\NEW{Abil}{\aSlap}{
+  \s\MYname	{[P1] Heroic Smack}
+  \s\MYtext	{Smack your opponent with decisive alacrity! {\bf Does 1 damage} Can be used to interrupt attacks of priority $\leq6$.}
+  \s\MYeffect	{I hit you. {\bf Take 1 damage. Your action is interrupted if it is priority $\leq6$.}}
+}
+
+\NEW{Abil}{\aGhostSlap}{
+  \s\MYname	{[P1] Ghost slap}
+  \s\MYtext	{Does no damage, but interrupts the target's action. \emph{Can only be used to interrupt another ghost.}}
+  \s\MYeffect	{I slap you. {\bf Your action for the round is interrupted.}}
+}
+
+\NEW{Abil}{\aLook}{
+  \s\MYname	{[P1] Look!}
+  \s\MYtext	{You yell ``look'' and point out something important. {\bf Your target gains -1 priority. Duration: 3 rounds including this one. Does not stack}}
+  \s\MYeffect	{I point and yell. {\bf Gain -1 priority for all combat actions for 3 rounds (including this one).}}
+}
+
+\NEW{Abil}{\aWatchOut}{
+  \s\MYname	{[P1] Watch Out!}
+  \s\MYtext	{You yell ``Watch Out'' and point out something important. {\bf All abilities targeting your target gain +1 priority. Duration: 2 rounds including this one. Does not stack.}}
+  \s\MYeffect	{I point and yell. {\bf All characters targetting your target gain +1 priority for all combat actions for 2 rounds, (including this one).}}
+}
+
+\NEW{Abil}{\aFlameLash}{
+  \s\MYname	{[P2] Flame Lash}
+  \s\MYtext	{Sear your opponent with a jet of flame. {\bf Does 1 damage.}}
+  \s\MYeffect	{A jet of flame burns you. {\bf Take 1 damage.}}
+}
+
+\NEW{Abil}{\aStab}{
+  \s\MYname	{[P2] Stab}
+  \s\MYtext	{Stab your opponent with a Dagger {\bf Does 1 damage.} \emph{Requires \iDagger{}}.}
+  \s\MYeffect	{I stab you. {\bf Take 1 damage.}}
+}
+
+\NEW{Abil}{\aEldritchSlap}{
+  \s\MYname	{[P1] Eldritch slap}
+  \s\MYtext	{Does no damage, but interrupts the target's action. \emph{Can only be used to interrupt a corporeal being unless you have activated \aAvatarOfRage{}, in which case you can target anyone.}}
+  \s\MYeffect	{I slap you. {\bf Your action for the round is interrupted.}}
+}
+
+\NEW{Abil}{\aLightArrows}{
+  \s\MYname	{[P3] Light Arrows}
+  \s\MYtext	{Begin the fight with a well-aimed arrow at your opponent's chest. {\bf Deals 3 damage.} \emph{Only usable in the first round of combat.}}
+  \s\MYeffect	{I conjure arrows of light from my wand. {\bf You take 3 damage.}}
+  }
+  
+\NEW{Abil}{\aFork}{
+  \s\MYname	{[P3] Fork}
+  \s\MYtext	{Stab your target with the \iForks{}. {\bf Deals 3 damage to 1 target, or 1 damage to each of 3 targets.} \emph{Requires the \iForks{} item}}
+  \s\MYeffect	{I stab you with the \iForks{} {\bf 1 target takes 3 damage, or 3 targets take 1 damage each.}}
+  }
+  
+\NEW{Abil}{\aArrows}{
+  \s\MYname	{[P3] Arrows}
+  \s\MYtext	{Shot a target with your bow {\bf Deals 2 damage to one target.} \emph{Must have \iBowAndArrow{} to use.}}
+  \s\MYeffect	{I shoot you with an arrow. {\bf Take 2 damage.}}
+  }
+  
+\NEW{Abil}{\aEntangle}{
+  \s\MYname	{[P3] Entangle}
+  \s\MYtext	{Summon roots to entangle your opponent. {\bf Interrupts the target's attack this round and gives them +2 priority next round.}}
+  \s\MYeffect	{Roots grow up from the ground and begin to entangle you, distracting you. {\bf Your action this round is interrupted and you gain +2 priority next round.}}
+  }
+  
+\NEW{Abil}{\aWaterWhip}{
+  \s\MYname	{[P3] Water Whip}
+  \s\MYtext	{Slap your opponent with a tendril of Water. {\bf Deal 2 damage to one opponent.}}
+  \s\MYeffect	{I conjure a whip made of water. {\bf Target takes 2 damage.}}
+  }
+  
+\NEW{Abil}{\aUnseenAssailants}{
+  \s\MYname	{[P3] Unseen Assailants}
+  \s\MYtext	{Summon shadows to attack your foes. {\bf Deal 1 damage to two opponents.}}
+  \s\MYeffect	{Shadows attack you. {\bf Up to 2 targets takes 1 damage.}}
+  }  
+
+\NEW{Abil}{\aDauntingLight}{
+  \s\MYname	{[P4] Daunting Light}
+  \s\MYtext	{The glow of your enlightenment dazzles and overwhelms your target. {\bf Deal 2 damage to an opponent. They gain +1 priority next round.}}
+  \s\MYeffect	{A light so brilliant that it hurts radiates from me. {\bf Take 2 damage and gain +1 priority.}}
+  }
+  
+\NEW{Abil}{\aCrucio}{
+  \s\MYname	{[P4] Crucio}
+  \s\MYtext	{A forbidden word that brings unfathomable torment to your foes. {\bf Deal 3 damage to up to 2 opponents.}}
+  \s\MYeffect	{``Crucio''. {\bf Up to two targets take 3 damage.}}
+  }
+  
+\NEW{Abil}{\aShadowLash}{
+  \s\MYname	{[P4] Shadow Lash}
+  \s\MYtext	{Summon two lashing tendrils of shadow. {\bf Deal 2 damage to up to 2 opponents.}}
+  \s\MYeffect	{I crack a whip of pure darkness at you. {\bf Up to two targets take 2 damage.}}
+  }  
+
+\NEW{Abil}{\aDekuStun}{
+  \s\MYname	{[P5] Deku Stun}
+  \s\MYtext	{Throw a \iDekuNut{} at your opponent to stun them. {\bf Deals 2 damage to an opponent and they gain +2 priority next round.} \emph{Consumes one \iDekuNut{}.}}
+  \s\MYeffect	{I throw a \iDekuNut{\MYname} at you. You are stunned. {\bf You take 2 damage and gain +2 priority next round.}}
+  }
+  
+\NEW{Abil}{\aKick}{
+  \s\MYname	{[P5] Kick}
+  \s\MYtext	{Viciously kick your opponent. {\bf Does 2 damage.}}
+  \s\MYeffect	{I kick you. {\bf Target takes 2 damage.}}
+}
+
+\NEW{Abil}{\aFlash}{
+  \s\MYname	{[P5] Flash}
+  \s\MYtext	{Create a burst of flame that startles your opponent. {\bf Does 2 damage and causes the target to gain +1 priority next round.}}
+  \s\MYeffect	{A brilliant flash erupts from my wand, startling my opponent. {\bf Target takes 2 damage and gains +1 priority next round.}}
+}
+
+\NEW{Abil}{\aBats}{
+  \s\MYname	{[P5] Bats!}
+  \s\MYtext	{Summon bats to stymie your target. {\bf Does 2 damage to one target and causes the target to gain +1 priority next round.} \emph{You must be in \aAvatarOfRage{} to use this ability}}
+  \s\MYeffect	{A cloud of bats materializes and attacks you. {\bf Target takes 2 damage and gains +1 priority next round.}}
+}
+  
+\NEW{Abil}{\aDinFire}{
+  \s\MYname	{[P6] Din's Fire}
+  \s\MYtext	{Summons a ring of fire around you. {\bf Deals 2 damage to each of 3 targets.} \emph{You get +1 priority next round}}
+  \s\MYeffect	{A ring of fire forms around me and burns my opponents. {\bf Up to three targets take 2 damage.}}
+  }
+  
+\NEW{Abil}{\aBombs}{
+  \s\MYname	{[P6] Bombs}
+  \s\MYtext	{Throw a bomb at your foe. {\bf Deals 2 damage to each of 3 targets.} \emph{Must have \iBombs{} to use. You get +1 priority next round.}}
+  \s\MYeffect	{A bomb explodes at your feet. {\bf Up to three targets take 2 damage.}}
+  }
+
+\NEW{Abil}{\aRainDaggers}{
+  \s\MYname	{[P6] Rain of Daggers}
+  \s\MYtext	{Summon a hail of daggers that rains over your foes. {\bf Does 2 damage to up to three opponents} \emph{You gain +1 priority next round. The daggers do not persist beyond the effect and cannot be used as independent weapons.}}
+  \s\MYeffect	{Fifty daggers rain from the sky, slicing into you. {\bf Up to three targets take 2 damage.}}
+  }
+
+\NEW{Abil}{\aNayrusLove}{
+  \s\MYname	{[P6] Nayru's Love}
+  \s\MYtext	{Surrounds you in a shell of radiant light. {\bf You take no damage next round, although you can still be interrupted.} Show the ``effect'' side to anyone who attacks you in the next round.}
+  \s\MYeffect	{A bubble of light surrounds me. {\bf I take no damage from your attack.}}
+  }
+
+\NEW{Abil}{\aShardsOfIce}{
+  \s\MYname	{[P6] Shards of Ice}
+  \s\MYtext	{A ring of ice materializes around you, blasting outward. {\bf Does 1 damage to each of 3 targets. They get +1 priority next round.}}
+  \s\MYeffect	{Ice shards fly at you. {\bf Up to three targets take 1 damage. Targets get +1 priority next round.}}
+  }
+
+\NEW{Abil}{\aRoot}{
+  \s\MYname	{[P7] Root}
+  \s\MYtext	{Summon vines to root your target to the spot. {\bf Deals 1 damage to your target and they get +3 priority next round.}}
+  \s\MYeffect	{Vines sprout from the ground at impossible speed and entangle you. {\bf Take 1 damage and gain +3 priority next round.}}
+  }
+  
+\NEW{Abil}{\aHookshot}{
+  \s\MYname	{[P8] Hookshot}
+  \s\MYtext	{Grab an item which your target is holding in their hand. {\bf Does no damage, but brings the item to you.} \emph{Must have \iHookshot{} to use.}}
+  \s\MYeffect	{A hook flies out and grabs the item you are holding. {\bf Take no damage, but you must give me the item you are holding.}}
+  }
+
+\NEW{Abil}{\aBlind}{
+  \s\MYname	{[P8] Blindness}
+  \s\MYtext	{Blinds those who are attackin you {\bf Does no damage, but up to two opponents gain +3 priority next round.} }
+  \s\MYeffect	{You are suddenly blind. {\bf Gain +3 priority for the next round of combat.}}
+  }
+
+\NEW{Abil}{\aAK}{
+  \s\MYname	{[P9] Avada Kedavra (Dark)}
+  \s\MYtext	{Dark magic is just so seductively easy. Onlookers are horrified. {\bf Reduces target's HP to 0. They bear a mark that is very distinctive of dark magic.} \emph{Cannot be used two turns in a row.}}
+  \s\MYeffect	{A blast of green light flashes from my wand. I have clearly just done dark magic. {\bf My target's HP is reduced to 0.}}
+  }
+  
+\NEW{Abil}{\aEnergyBolt}{
+  \s\MYname	{[P9] Energy Bolt}
+  \s\MYtext	{Summon a ferocious blast of energy to decimate a single enemy. {\bf Reduces target's HP to 0.} \emph{This ability cannot be interrupted by an attack of priority 1 or 2.}}
+  \s\MYeffect	{A blast of red light flashes from my wand.{\bf My target's HP is reduced to 0.}}
+  }
+  
+\NEW{Abil}{\aSpinAttack}{
+  \s\MYname	{[P9] Spin Attack}
+  \s\MYtext	{Twirl your sword around madly, striking all foes within reach. {\bf Deals 4 damage to three targets.} \emph{Requires \iMasterSword{} to use. You are dizzied by this attack and can take NO action the following round.}}
+  \s\MYeffect	{I spin around, swinging my sword. {\bf Up to 4 targets take 3 damage.}}
+  }
+  
+\NEW{Abil}{\aFireball}{
+  \s\MYname	{[P9] Fireball Barrage}
+  \s\MYtext	{Summons several fireballs to sear your targets. {\bf Does 3 damage to up to three targets.} \emph{Requires \aAvatarOfRage{}}.}
+  \s\MYeffect	{I summon a hail of fireballs. {\bf Up to 3 targets take 3 damage.}}
+  }

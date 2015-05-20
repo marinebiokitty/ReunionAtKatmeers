@@ -1,0 +1,405 @@
+
+%%
+%% This file creates the Item, ItemPacket, ItemFold, ItemEnvelope, and
+%% ItemLabel datatypes, and creates macros for each.  These are for
+%% various types of in-game items.
+%%
+%%%%%
+
+
+%%%%%
+%% Item macros are for normal item cards.
+\DECLARESUBTYPE{Item}{TransElement}
+\PRESETS{Item}{
+  \FD\MYtext	{} %% longer text of item
+  \FD\MYmark	{} %% possible contents of shaded ``mark'' on card
+  \FD\MYbulky	{0} %% potential bulkiness
+  \FD\MYcapacity{N/A} %% potential capacity
+  \sd\MYlistmap	{\item\MYname\ifx\MYnumber\empty\else\ (\MYnumber)\fi}
+  }
+
+
+%%%%%
+%% \prop
+%% \unstash
+%% \bulky{<number>}
+%% \contain{<number>}
+%%
+%% \prop inside an Item macro labels the card as a prop.  \unstash
+%% labels the card as unstashable.  \bulky{n} labels the card as
+%% n-hands bulky.  \contain{n} labels the card with n-hands capacity.
+\def\prop{%
+  \append\MYmark{ ~PROP~ }}
+\def\unstash{%
+  \append\MYmark{ ~UNSTASHABLE~ }}
+\def\val{%
+  \append\MYmark{ ~VALUABLE~ }}
+\def\steal{%
+  \append\MYmark{ ~HARD TO STEAL~ }}
+\def\bulky#1{%
+  \s\MYbulky{#1}%
+  \append\MYmark{\mbox{ ~\MYbulky-Hand~Bulky~ }}}
+\def\contain#1{%
+  \s\MYcapacity{#1}%
+  \append\MYmark{\mbox{ ~\MYcapacity-Hand~Capacity~ }}}
+
+
+%%%%%
+%% ItemPacket macros are for item cards with an attached packet.
+%% They are a subtype of Item.
+\DECLARESUBTYPE{ItemPacket}{Item}
+\PRESETS{ItemPacket}{
+  \F\MYcontents
+  }
+
+
+%%%%%
+%% ItemFold macros are for items represented by just a folded packet.
+%% They are a subtype of ItemPacket, with the longer text and ``mark''
+%% left blank, since they have no actual item card.
+\DECLARESUBTYPE{ItemFold}{ItemPacket}
+\PRESETS{ItemFold}{
+  \s\MYmark{}
+  }
+
+
+%%%%%
+%% ItemEnvelope macros are for items represented by just an envelope.
+%% They are a subtype of ItemPacket, with the longer text and ``mark''
+%% left blank, since they have no actual item card.
+\DECLARESUBTYPE{ItemEnvelope}{ItemPacket}
+\PRESETS{ItemEnvelope}{
+  \s\MYmark{}
+  }
+
+
+%%%%%
+%% ItemLabel macros are for small labels that would get used on
+%% physreps, e.g. gun labels.  The ``mark'' is left blank, since
+%% it isn't used for these.
+\DECLARESUBTYPE{ItemLabel}{Item}
+\PRESETS{ItemLabel}{
+  \s\MYmark{}
+  }
+
+
+%%%%%
+%% \icard[<extras>]{<name>}{<number>}{<text>}
+%% \specialicard[<extras>]{<name>}{<number>}{<text>}{<mark>}
+%% \itempacket[<extras>]{<name>}{<number>}{<text>}{<mark>}{<contents>}
+%% \itemfold{<name>}{<number>}{<text>}{<contents>}
+%% \itemenvelope{<name>}{<number>}{<text>}{<contents>}
+%% \itemlabel{<name>}{<number>}{<text>}
+%%
+%% These are wrappers around \INSTANCE, useful for 1-shots.
+%%
+%% For \icard, \specialicard, and \itempacket, the optional <extras>
+%% (in []'s) is for things like \unstash and \bulky{3}.  For example,
+%% \icard[\prop\contain{2}]{..}{..}{..}{..} gives an item that has a
+%% prop and 3-hands capacity.
+%%
+%% The last arg (#5) to \specialicard is for anything extra you may
+%% want in the ``mark''
+\newinstance{Item}{\icard[4][]}{
+  \s\MYname{#2}\s\MYnumber{#3}\s\MYtext{#4}#1}
+\newinstance{Item}{\specialicard[5][]}{
+  \s\MYname{#2}\s\MYnumber{#3}\s\MYtext{#4}\s\MYmark{#5}#1}
+\newinstance{ItemPacket}{\itempacket[6][]}{
+  \s\MYname{#2}\s\MYnumber{#3}\s\MYtext{#4}\s\MYmark{#5}\s\MYcontents{#6}#1}
+\newinstance{ItemFold}{\itemfold[4]}{
+  \s\MYname{#1}\s\MYnumber{#2}\s\MYtext{#3}\s\MYcontents{#4}}
+\newinstance{ItemEnvelope}{\itemenvelope[4]}{
+  \s\MYname{#1}\s\MYnumber{#2}\s\MYtext{#3}\s\MYcontents{#4}}
+\newinstance{ItemLabel}{\itemlabel[3]}{
+  \s\MYname{#1}\s\MYnumber{#2}\s\MYtext{#3}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{Item}{\iTest}{
+  \s\MYname	{Test Item}
+  \s\MYnumber	{0000}
+  \s\MYtext	{A Test Item Card}
+  }
+
+\NEW{ItemPacket}{\iTestPacket}{
+  \s\MYname	{Test Item}
+  \s\MYnumber	{0000}
+  \s\MYtext	{A Test Item with a big red button.  Open packet if
+		you press the big red button.}
+  \s\MYcontents	{The item beeps at you.}
+  }
+
+\NEW{ItemFold}{\iTestFold}{
+  \s\MYname	{Test Food}
+  \s\MYnumber	{0000}
+  \s\MYtext	{open if you eat}
+  \s\MYcontents	{It tastes yummy.}
+  }
+
+\NEW{ItemEnvelope}{\iTestEnvelope}{
+  \s\MYname	{Test Food}
+  \s\MYnumber	{0000}
+  \s\MYtext	{open if you eat}
+  \s\MYcontents	{It tastes yummy.}
+  }
+
+\NEW{ItemLabel}{\iTestLabel}{
+  \s\MYname	{Test Gun Label}
+  \s\MYnumber	{0000}
+  \s\MYtext	{Disc gun, loadable to 20 shots.}
+  }
+
+\NEW{Item}{\iWhatzit}{
+  \s\MYname	{Whatzit}
+  \s\MYnumber	{12345}
+  \s\MYtext	{If you press it, open packet a.  If you twirl it, open
+		packet b.  If you pull it, open packet c.}
+  \bulky	{1}
+  \s\MYsigns	{\signstrip{a}{it goes ``beep.''}
+		\signstrip{b}{it goes ``whoop.''}
+		\signstrip{c}{it goes ``bang.''}
+		}
+  \s\MYabils	{\ability{Stop Crying}{By futzing with the Whatzit, you
+		can make babies stop crying.}{I make the baby stop
+		crying.}
+		}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%Hermione's Items
+\NEW{Item}{\iPower}{
+  \s\MYname	{Paragon of Power}
+  \s\MYnumber	{296}
+  \s\MYtext	{A glowing yellow triangle. It resonates with Power. Once in game, it's dark ability may be activated.
+  {\bf Ability} Demon Form: (instant) You turn into the terrifying demon [name]dorf.  This change is not reversible.  You gain 3 HP and are no longer interruptible. (This ability is {\bf Dark}. You must tell all observers that you have just used dark magic if you activate the ability.)}
+  \steal{}
+}
+
+\NEW{Item}{\iRing}{
+  \s\MYname	{A Wedding Ring}
+  \s\MYnumber	{766}
+  \s\MYtext	{This is a shiny wedding ring. \cHermione{}'s and \cHarry{\MYname}'s names are engraved on the it.}
+}
+
+\NEW{Item}{\iHBadge}{
+  \s\MYname	{An Auror's Badge}
+  \s\MYnumber	{381}
+  \s\MYtext	{It says that \cHermione{} is an Auror with all due authority.}
+}
+
+\NEW{Item}{\iNecronomicon}{
+  \s\MYname	{The Liber Ivonis}
+  \s\MYnumber	{572}
+  \s\MYtext	{A tome of lore about the Shadow Realm}
+}
+
+\NEW{Item}{\iDekuNut}{
+  \s\MYname	{Deku Nut}
+  \s\MYnumber	{717}
+  \s\MYtext	{Needed for ``Deku stun'' attack. Useless otherwise. Standard adventurer fare. (Consume on use.)}
+}
+
+%%Harry's items
+\NEW{Item}{\iWallet}{
+  \s\MYname	{Muggle Wallet}
+  \s\MYnumber	{518}
+  \s\MYtext	{A wallet. Wizards don't use such things.}
+}
+
+\NEW{Item}{\iMoney}{
+  \s\MYname	{5 Rupees}
+  \s\MYnumber	{574}
+  \s\MYtext	{Some Muggle money. (You may freely make change. Just make an item card.)}
+}
+
+\NEW{Item}{\iPhone}{
+  \s\MYname	{Cell Phone}
+  \s\MYnumber	{505}
+  \s\MYtext	{A device Muggles use instead of owls or Floo Powder to communicate. Doesn't have any reception at Katmeers.}
+}
+
+%%Rons Items
+\NEW{Item}{\iFullFlask}{
+  \s\MYname	{Ever-Full Hip Flask}
+  \s\MYnumber	{825}
+  \s\MYtext	{A flask that is forever full of your alcohol of choice. It is never empty.}
+}
+
+\NEW{Item}{\iExecPen}{
+  \s\MYname	{Executive Pen}
+  \s\MYnumber	{608}
+  \s\MYtext	{A pen bearing the Ministry Seal and \cRon{}'s name}
+}
+
+\NEW{Item}{\iClassRing}{
+  \s\MYname	{Class Ring}
+  \s\MYnumber	{654}
+  \s\MYtext	{Katmeers Class of 2005 class ring. \cRon{}'s name is engraved on the inside of the ring.}
+}
+
+%%Luna's Items
+\NEW{ItemFold}{\iCrystal}{
+  \s\MYname	{A Mysterious Crystal}
+  \s\MYnumber	{519}
+  \s\MYtext	{Open if you touch the crystal. {\bf Does not apply if your badge number is \cLuna{\MYnumber{}}.}}
+  \s\MYcontents	{The stone resonates in your hand the moment you touch it. The stone is alluring and beautiful, and something about it seems almost alive. Then, into your mind, it whispers a mesmerizing promise - for unrivaled power and the means to see all your dreams come true. Look deep, deep inside yourself and find whatever darkness exists in your (character's) soul. That part of you comes alive for the stone, believing it on a visceral level, and urging you to protect it, to possess it, and to keep it safe.
+  
+  {\bf Gain the Goal: Possess and Protect the Crystal.  Don't let anyone take it away, even for a moment} }
+  \steal{}
+  }
+  
+\NEW{Item}{\iForks}{
+  \s\MYname	{The Triumph Forks}
+  \s\MYnumber	{858}
+  \s\MYtext	{A set of three, wonderful, golden utensils found on an expedition.}
+}
+
+\NEW{Item}{\iHerbs}{
+  \s\MYname	{Some Unusual Herbs}
+  \s\MYnumber	{908}
+  \s\MYtext	{A small collection of exotic herbs. Half of them have been meticulously classified. The other half are unlabled.}
+}
+
+\NEW{Item}{\iOcarina}{
+  \s\MYname	{An Ocarina}
+  \s\MYnumber	{957}
+  \s\MYtext	{A musical instrument.}
+}
+
+\NEW{Item}{\iCalculator}{
+  \s\MYname	{A Graphing Calculator}
+  \s\MYnumber	{119}
+  \s\MYtext	{A Muggle device that draws pictures if you input the right commands.}
+}
+
+%La'ki - none to start game with
+
+
+%%Neville
+\NEW{Item}{\iWisdom}{
+  \s\MYname	{Paragon of Wisdom}
+  \s\MYnumber	{584}
+  \s\MYtext	{A glowing yellow triangle. It resonates with Wisdom. Once in game, it's dark ability may be activated.
+  {\bf Ability}  Dictum: Compel one target to perform a specific action for you. (e.g. ``Defend me.'' ``Give me that bottle.'') Action cannot directly harm target.  Action cannot last longer than one hour. (This ability is {\bf Dark}. You must tell all observers that you have just used dark magic if you activate the ability.)}
+  \steal{}
+}
+
+\NEW{Item}{\iMasterSword}{
+  \s\MYname	{The Master Sword}
+  \s\MYnumber	{305}
+  \s\MYtext	{A big sword. You can't use it unless you have a relevant ability.}
+}
+
+\NEW{Item}{\iBombs}{
+  \s\MYname	{Bombs}
+  \s\MYnumber	{701}
+  \s\MYtext	{From a fairy fountain. You can't use them unless you have a relevant ability.}
+}
+
+\NEW{Item}{\iBowAndArrow}{
+  \s\MYname	{A Bow and Arrows}
+  \s\MYnumber	{244}
+  \s\MYtext	{A bow and apparently infinite arrows! You can't use it unless you have a relevant ability.}
+}
+
+\NEW{Item}{\iHookshot}{
+  \s\MYname	{Hookshot}
+  \s\MYnumber	{333}
+  \s\MYtext	{A spring-loaded hook with a handle. You can't use it unless you have a relevant ability.}
+}
+
+\NEW{Item}{\iLens}{
+  \s\MYname	{Lens of Truth}
+  \s\MYnumber	{903}
+  \s\MYtext	{A very intricate optical device.}
+}
+
+\NEW{Item}{\iNBadge}{
+  \s\MYname	{An Auror's Badge}
+  \s\MYnumber	{115}
+  \s\MYtext	{It says that \cNeville{} is an Auror with all due authority.}
+}
+
+%Ginny
+\NEW{Item}{\iMemento}{
+  \s\MYname	{A handwritten note}
+  \s\MYnumber	{683}
+  \s\MYtext	{A note written from Drew to \cGinny{}. It appears to be from their 5th year at Katmeers.}
+}
+
+%Malfoy
+\NEW{Item}{\iCourage}{
+  \s\MYname	{Paragon of Courage}
+  \s\MYnumber	{262}
+  \s\MYtext	{A glowing yellow triangle. It resonates with Courage. Once in game, it's dark ability may be activated.
+  {\bf Ability} Juggernaut: (instant) For the rest of the combat, your spells are duplicated.  You may choose a new target or targets for the copy.  The two copies are interrupted separately - if you are only hit with one interrupt, only one copy of the spell will be interrupted and the other will damage as normal. (This ability is {\bf Dark}. You must tell all observers that you have just used dark magic if you activate the ability.)}
+  \steal{}
+}
+
+\NEW{Item}{\iMBook}{
+  \s\MYname	{A book}
+  \s\MYnumber	{282}
+  \s\MYtext	{A muggle book.}
+}
+
+\NEW{Item}{\iMeditationBeads}{
+  \s\MYname	{Meditation Beads}
+  \s\MYnumber	{524}
+  \s\MYtext	{A set of meditation beads}
+}
+
+\NEW{Item}{\iCandle}{
+  \s\MYname	{A candle}
+  \s\MYnumber	{445}
+  \s\MYtext	{A red candle.}
+}
+
+%Lucius
+\NEW{Item}{\iPlanner}{
+  \s\MYname	{Dirk's Planner}
+  \s\MYnumber	{962}
+  \s\MYtext	{A planner containing the Minister's schedule.}
+}
+
+\NEW{Item}{\iDagger}{
+  \s\MYname	{Dagger}
+  \s\MYnumber	{791}
+  \s\MYtext	{A sharp dagger with an engraved handle.}
+}
+
+\NEW{Item}{\iRubyRing}{
+  \s\MYname	{A Ruby Ring}
+  \s\MYnumber	{541}
+  \s\MYtext	{A ring that looks like it has a large ruby.}
+}
+
+%Goyle
+\NEW{Item}{\iMKey}{
+  \s\MYname	{Key to Murchison Family Vault}
+  \s\MYnumber	{516}
+  \s\MYtext	{A key engraved with the \cLucius{\formal} family crest.}
+}
+
+%Ghost
+\NEW{Item}{\iLantern}{
+  \s\MYname	{A Lantern}
+  \s\MYnumber	{955}
+  \s\MYtext	{A small lantern with a single, flickering flame inside.}
+}
+
+%%Crabbe
+\NEW{Item}{\iGrimoire}{
+  \s\MYname	{Grimoire of Ghost Lore}
+  \s\MYnumber	{469}
+  \s\MYtext	{A draft of a very well researched paper on Ghosts.}
+}
+
+\NEW{Item}{\iNecklace}{
+  \s\MYname	{A Necklace}
+  \s\MYnumber	{287}
+  \s\MYtext	{The necklace resembles a weeping eye}
+}
