@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.23)  19 MAY 2015 23:40
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.23)  5 OCT 2015 20:24
 entering extended mode
-**C:/Users/Acata/Desktop/Larps/Katmeers/Bluesheets/Concordance.tex
-(C:/Users/Acata/Desktop/Larps/Katmeers/Bluesheets/Concordance.tex
+**C:/Users/Acata/Desktop/Larps/ReunionAtKatmeers/Bluesheets/Concordance.tex
+(C:/Users/Acata/Desktop/Larps/ReunionAtKatmeers/Bluesheets/Concordance.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -418,7 +418,7 @@ No file "C:/Users/Acata/Desktop/Larps/Katmeers"/Lists/run1-LIST.tex.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\setspace\setspace.sty"
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-(C:\Users\Acata\Desktop\Larps\Katmeers\Bluesheets\Concordance.aux)
+No file Concordance.aux.
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
 LaTeX Font Info:    ... okay on input line 2.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 2.
@@ -427,7 +427,6 @@ LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 2.
 LaTeX Font Info:    ... okay on input line 2.
 LaTeX Font Info:    Checking defaults for OMS/pzccm/m/n on input line 2.
 LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 2.
-
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omspzccm.fd"
 File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
@@ -518,21 +517,21 @@ Non-PDF special ignored!
 Non-PDF special ignored!] [2]
 Missing character: There is no ’ in font ptmr7t!
  [3] [4]
-(C:\Users\Acata\Desktop\Larps\Katmeers\Bluesheets\Concordance.aux) ) 
+(C:\Users\Acata\Desktop\Larps\ReunionAtKatmeers\Bluesheets\Concordance.aux) ) 
 Here is how much of TeX's memory you used:
- 8962 strings out of 493921
- 105960 string characters out of 3144876
- 249561 words of memory out of 3000000
- 12100 multiletter control sequences out of 15000+200000
+ 9000 strings out of 493921
+ 106155 string characters out of 3144876
+ 249152 words of memory out of 3000000
+ 12140 multiletter control sequences out of 15000+200000
  23960 words of font info for 56 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 45i,12n,53p,893b,861s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program
- Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9
-/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type
-1/urw/times/utmri8a.pfb>
-Output written on Concordance.pdf (4 pages, 55556 bytes).
+ 45i,12n,53p,902b,861s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C
+:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/M
+iKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
+onts/type1/urw/times/utmri8a.pfb>
+Output written on Concordance.pdf (4 pages, 55951 bytes).
 PDF statistics:
  28 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
