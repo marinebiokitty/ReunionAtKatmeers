@@ -1,1 +1,1 @@
-\edef\gamepath{"C:/Users/Acata/Desktop/Larps/ReunionAtKatmeers"}
+\edef\gamepath{"C:/Users/charf/OneDrive/Documents/GitHub/ReunionAtKatmeers"}
